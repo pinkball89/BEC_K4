@@ -35,36 +35,32 @@ Explanation
 Each line contains the value of payment formatted according to the four countries' respective currencies.
  **/
 
-import java.io.*;
 import java.util.*;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.text.*;
 
 public class Solution {
-
+    
     public static void main(String[] args) {
-        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner scanner = new Scanner(System.in);
+        double payment = scanner.nextDouble();
+        scanner.close();
         
-        Scanner input = new Scanner(System.in);
-        double payment = input.nextDouble();
-        DecimalFormat df = new DecimalFormat("#,##0.00");
-        String roundedValue = df.format(payment);
-        input.close();
+        // Write your code here.
+        // Create NumberFormat instances for different Locales
+        NumberFormat usFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        NumberFormat indiaFormat = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
+        NumberFormat chinaFormat = NumberFormat.getCurrencyInstance(Locale.CHINA);
+        NumberFormat franceFormat = NumberFormat.getCurrencyInstance(Locale.FRANCE);
 
-          /* Create custom Locale for India. 
-          I used the "IANA Language Subtag Registry" to find India's country code */
-        Locale indiaLocale = new Locale("en", "IN");
-
-        /* Create NumberFormats using Locales */
-        NumberFormat us     = NumberFormat.getCurrencyInstance(Locale.US);
-        NumberFormat india  = NumberFormat.getCurrencyInstance(indiaLocale);
-        NumberFormat china  = NumberFormat.getCurrencyInstance(Locale.CHINA);
-        NumberFormat france = NumberFormat.getCurrencyInstance(Locale.FRANCE);
-
-        /* Print output */        
-        System.out.println("US: "     + us.format(payment));
-        System.out.println("India: "  + india.format(payment));
-        System.out.println("China: "  + china.format(payment));
-        System.out.println("France: " + france.format(payment));
+        // Format the payment according to different Locales
+        String us = usFormat.format(payment);
+        String india = indiaFormat.format(payment);
+        String china = chinaFormat.format(payment);
+        String france = franceFormat.format(payment);
+        
+        System.out.println("US: " + us);
+        System.out.println("India: " + india);
+        System.out.println("China: " + china);
+        System.out.println("France: " + france);
     }
 }
